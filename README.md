@@ -124,7 +124,7 @@ Bankify delivers:
 ✨ Toast Notifications
 
 
----
+```
 
 ## 🛠️ Tech Stack
 
@@ -218,7 +218,7 @@ Bankify delivers:
 │ Collections: users, accounts, transactions, cards, etc. │
 └─────────────────────────────────────────────────────────────┘
 
----
+```
 
 ## 🚀 Getting Started
 
@@ -262,19 +262,26 @@ Different configs for dev/prod
 
 📸 Screenshots
 Landing Page
-Landing
+<img width="1915" height="927" alt="dashboard" src="https://github.com/user-attachments/assets/a52f5576-a884-4b45-b6b5-e4c29f9d443a" />
+
 
 Dashboard
-Dashboard
+<img width="1911" height="927" alt="user_dashboard" src="https://github.com/user-attachments/assets/b3613407-1fcf-4f70-8191-b912f347a012" />
+
 
 Transactions
-Transactions
+<img width="1908" height="928" alt="account_page" src="https://github.com/user-attachments/assets/40b42a29-bc4f-44f6-bccc-446fd57f5636" />
+
 
 UPI Payment
-UPI
+<img width="1912" height="931" alt="UPI_payment" src="https://github.com/user-attachments/assets/94f93a29-3880-4493-a0bf-8d0c3af3ef34" />
 
-Analytics
-Analytics
+
+Account Statement Page
+<img width="1920" height="928" alt="Account_Statement" src="https://github.com/user-attachments/assets/7db87a3f-a241-4e5e-a132-2eb91e2651ae" />
+
+
+
 🤝 Contributing
 Contributions are what make the open-source community amazing! Any contributions you make are greatly appreciated.
 
