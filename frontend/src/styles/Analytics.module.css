@@ -1,0 +1,1189 @@
+/* ========================================
+   ANALYTICS PAGE STYLES
+   ======================================== */
+
+.pageLayout {
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.mainContent {
+  margin-left: 280px;
+  padding-top: 70px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.pageContainer {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Page Header */
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.pageTitle h1 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+}
+
+.pageTitle p {
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+/* Period Selector */
+.periodSelector {
+  display: flex;
+  gap: 0.5rem;
+  background: white;
+  padding: 0.375rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.periodBtn {
+  padding: 0.625rem 1.25rem;
+  background: transparent;
+  color: #6b7280;
+  font-weight: 500;
+  font-size: 0.875rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.periodBtn:hover {
+  color: #667eea;
+  background: rgba(102, 126, 234, 0.08);
+}
+
+.periodBtn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+/* Summary Grid */
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.summaryCard {
+  background: white;
+  border-radius: 20px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.summaryCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.summaryCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.summaryCard.income::before {
+  background: linear-gradient(90deg, #10b981, #059669);
+}
+
+.summaryCard.expenses::before {
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+}
+
+.summaryCard.savings::before {
+  background: linear-gradient(90deg, #8b5cf6, #7c3aed);
+}
+
+.summaryCard.transactions::before {
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+}
+
+.cardIcon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+}
+
+.summaryCard.income .cardIcon {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.summaryCard.expenses .cardIcon {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+.summaryCard.savings .cardIcon {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+}
+
+.summaryCard.transactions .cardIcon {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.cardIcon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.cardContent {
+  flex: 1;
+}
+
+.cardLabel {
+  display: block;
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-bottom: 0.375rem;
+  font-weight: 500;
+}
+
+.cardValue {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1f2937;
+  margin-bottom: 0.375rem;
+}
+
+.cardChange {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+.cardChange .positive {
+  color: #10b981;
+  font-weight: 600;
+}
+
+.cardChange .negative {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+/* Charts Grid */
+.chartsGrid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.chartCard {
+  background: white;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.chartHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.chartHeader h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.chartBody {
+  min-height: 250px;
+}
+
+/* Bar Chart */
+.barChartContainer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  height: 200px;
+  padding: 1rem 0;
+}
+
+.barGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.barsWrapper {
+  display: flex;
+  gap: 4px;
+  align-items: flex-end;
+  height: 150px;
+}
+
+.bar {
+  width: 24px;
+  border-radius: 6px 6px 0 0;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.bar:hover {
+  opacity: 0.8;
+}
+
+.bar:hover .barTooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.incomeBar {
+  background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+}
+
+.expenseBar {
+  background: linear-gradient(180deg, #ef4444 0%, #dc2626 100%);
+}
+
+.barTooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.375rem 0.625rem;
+  background: #1f2937;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s;
+  margin-bottom: 5px;
+}
+
+.barTooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #1f2937;
+}
+
+.barLabel {
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.chartLegend {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f3f4f6;
+}
+
+.chartLegend span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.incomeIndicator {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-radius: 3px;
+}
+
+.expenseIndicator {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  border-radius: 3px;
+}
+
+/* Donut Chart */
+.donutContainer {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 1.5rem;
+}
+
+.donutChart {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.donutSlice {
+  cursor: pointer;
+  transition: all 0.3s;
+  transform-origin: center;
+}
+
+.donutSlice:hover {
+  filter: brightness(1.1);
+  transform: scale(1.02);
+}
+
+.donutSlice.selected {
+  filter: brightness(1.15);
+  transform: scale(1.05);
+}
+
+.donutCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.donutTotal {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #1f2937;
+}
+
+.donutLabel {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.categoryList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.categoryItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: #f9fafb;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.categoryItem:hover {
+  background: #f3f4f6;
+}
+
+.categoryItem.selected {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  border: 1px solid rgba(102, 126, 234, 0.3);
+}
+
+.categoryInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.categoryDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.categoryName {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.categoryStats {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.categoryAmount {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.categoryPercent {
+  font-size: 0.8rem;
+  color: #6b7280;
+  min-width: 40px;
+  text-align: right;
+}
+
+/* Insights Section */
+.insightsSection {
+  margin-bottom: 2rem;
+}
+
+.insightsSection h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1.25rem;
+}
+
+.insightsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.insightCard {
+  background: white;
+  border-radius: 16px;
+  padding: 1.25rem;
+  display: flex;
+  gap: 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s;
+}
+
+.insightCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.insightIcon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.insightContent h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.375rem;
+}
+
+.insightContent p {
+  font-size: 0.8rem;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+/* Budget Section */
+.budgetSection {
+  background: white;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.sectionHeader h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.setBudgetBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.setBudgetBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.budgetGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
+
+.budgetCard {
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+
+.budgetCard:hover {
+  background: #f3f4f6;
+}
+
+.budgetHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.budgetCategory {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.budgetStatus {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  background: #d1fae5;
+  color: #059669;
+  border-radius: 50px;
+}
+
+.budgetStatus.over {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.budgetProgress {
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+
+.budgetFill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.budgetFill.over {
+  background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
+}
+
+.budgetInfo {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+/* ========================================
+   RESPONSIVE STYLES
+   ======================================== */
+
+@media (max-width: 1200px) {
+  .summaryGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .chartsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .insightsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .budgetGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .mainContent {
+    margin-left: 0;
+  }
+  
+  .budgetGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .mainContent {
+    padding-top: 60px;
+    padding-bottom: 70px;
+  }
+  
+  .pageContainer {
+    padding: 1rem;
+  }
+  
+  .pageHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .periodSelector {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  .summaryGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .insightsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .budgetGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .barChartContainer {
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+  }
+  
+  .bar {
+    width: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cardValue {
+    font-size: 1.25rem;
+  }
+  
+  .donutContainer {
+    width: 160px;
+    height: 160px;
+  }
+  
+  .chartLegend {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+}
+/* ========================================
+   BUDGET PLANNER - ENHANCED STYLES
+   ======================================== */
+
+/* Budget Actions */
+.budgetActions {
+  display: flex;
+  gap: 0.375rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.budgetCard:hover .budgetActions {
+  opacity: 1;
+}
+
+.budgetEditBtn,
+.budgetDeleteBtn {
+  width: 24px;
+  height: 24px;
+  background: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.budgetEditBtn {
+  color: #667eea;
+}
+
+.budgetEditBtn:hover {
+  background: #667eea;
+  color: white;
+}
+
+.budgetDeleteBtn {
+  color: #ef4444;
+}
+
+.budgetDeleteBtn:hover {
+  background: #ef4444;
+  color: white;
+}
+
+.budgetEditBtn svg,
+.budgetDeleteBtn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Budget Status Indicators */
+.budgetStatus {
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.overBudget {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.remaining {
+  background: #d1fae5;
+  color: #059669;
+}
+
+/* No Budgets State */
+.noBudgets {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: #f9fafb;
+  border-radius: 16px;
+}
+
+.noBudgets svg {
+  width: 64px;
+  height: 64px;
+  color: #d1d5db;
+  margin-bottom: 1rem;
+}
+
+.noBudgets h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.noBudgets p {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.primaryBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.primaryBtn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.secondaryBtn {
+  padding: 0.75rem 1.5rem;
+  background: #f3f4f6;
+  color: #6b7280;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.secondaryBtn:hover {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+/* Modal Styles */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal {
+  background: white;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: modalSlideIn 0.3s ease;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 2px solid #f3f4f6;
+}
+
+.modalHeader h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+.closeBtn {
+  width: 36px;
+  height: 36px;
+  background: #f3f4f6;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  transition: all 0.2s;
+}
+
+.closeBtn:hover {
+  background: #fee2e2;
+  color: #dc2626;
+  transform: rotate(90deg);
+}
+
+.closeBtn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.modalBody {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modalBody::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modalBody::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  border-radius: 3px;
+}
+
+.modalBody::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 3px;
+}
+
+.formGroup {
+  margin-bottom: 1.25rem;
+}
+
+.formGroup label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.formGroup input,
+.formGroup select {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  font-size: 0.95rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  background: white;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.formGroup input:focus,
+.formGroup select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+.formGroup select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpolyline points='6,9 12,15 18,9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  border-top: 2px solid #f3f4f6;
+}
+
+/* Export Button */
+.exportBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: white;
+  color: #6b7280;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.exportBtn:hover {
+  border-color: #667eea;
+  color: #667eea;
+  background: rgba(102, 126, 234, 0.05);
+}
+
+.exportBtn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Insight Cards - Warning & Success States */
+.insightCard.warning {
+  border-left: 4px solid #f59e0b;
+}
+
+.insightCard.success {
+  border-left: 4px solid #10b981;
+}
+
+.insightCard.warning .insightIcon {
+  color: #f59e0b;
+}
+
+.insightCard.success .insightIcon {
+  color: #10b981;
+}
+
+/* No Data State */
+.noData {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: #9ca3af;
+}
+
+.noData p {
+  font-size: 0.9rem;
+}
+
+/* Budget Card Enhanced */
+.budgetCard {
+  position: relative;
+  border: 2px solid transparent;
+  transition: all 0.3s;
+}
+
+.budgetCard:hover {
+  border-color: rgba(102, 126, 234, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Loading State for Budget Section */
+.budgetSection.loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.budgetSection.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f4f6;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Category Colors in Budget Cards */
+.budgetCard[data-category="Food"] .budgetFill {
+  background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
+}
+
+.budgetCard[data-category="Shopping"] .budgetFill {
+  background: linear-gradient(90deg, #8b5cf6 0%, #7c3aed 100%);
+}
+
+.budgetCard[data-category="Transport"] .budgetFill {
+  background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.budgetCard[data-category="Entertainment"] .budgetFill {
+  background: linear-gradient(90deg, #ec4899 0%, #db2777 100%);
+}
+
+.budgetCard[data-category="Bills"] .budgetFill {
+  background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);
+}
+
+/* ========================================
+   RESPONSIVE UPDATES
+   ======================================== */
+
+@media (max-width: 1024px) {
+  .budgetGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .budgetGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .setBudgetBtn svg {
+    display: none;
+  }
+
+  .insightsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .modalBody {
+    padding: 1rem;
+  }
+
+  .modalFooter {
+    flex-direction: column;
+  }
+
+  .secondaryBtn,
+  .primaryBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .budgetGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .budgetActions {
+    opacity: 1;
+  }
+
+  .chartHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .exportBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .pageHeader,
+  .setBudgetBtn,
+  .budgetActions,
+  .exportBtn,
+  .periodSelector {
+    display: none;
+  }
+
+  .summaryCard,
+  .chartCard,
+  .budgetCard {
+    break-inside: avoid;
+  }
+}
