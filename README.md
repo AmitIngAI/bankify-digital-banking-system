@@ -11,7 +11,7 @@
 [![JWT](https://img.shields.io/badge/JWT-Auth-000000?style=for-the-badge&logo=json-web-tokens&logoColor=white)](https://jwt.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
-**[Live Demo](https://bankify-sz1a.onrender.com)**
+**[Live Demo](https://bankify-digital-banking.vercel.app/)**
 
 </div>
 
