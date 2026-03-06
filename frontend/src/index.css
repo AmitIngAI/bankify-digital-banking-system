@@ -128,6 +128,32 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* ==================== INPUT FIX ==================== */
+
+input,
+select,
+textarea {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--text-primary);
+  padding: 10px;
+  border-radius: 6px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-tertiary);
+}
+
+
+/* ==================== AUTOFILL FIX ==================== */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text-primary);
+  transition: background-color 5000s ease-in-out 0s;
+}
 /* ==================== SCROLLBAR ==================== */
 ::-webkit-scrollbar {
   width: 8px;
@@ -514,4 +540,12 @@ button, [role="button"], input, select, textarea, a {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+input, textarea {
+  color: #000 !important;
+}
+
+input::placeholder {
+  color: #888;
 }
