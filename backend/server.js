@@ -64,6 +64,11 @@ app.use('/api/rd', rdRoutes);
 app.use('/api/budget', budgetRoutes);
 app.use('/api/notifications', notificationRoutes);
 
+// Health check route (for UptimeRobot)
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'OK' });
+});
+
 // Test route
 app.get('/', (req, res) => {
   res.json({ message: 'Bankify API is running! 🚀' });
