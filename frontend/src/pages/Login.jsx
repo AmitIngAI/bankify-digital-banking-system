@@ -3,13 +3,6 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import styles from '../styles/Auth.module.css';
 
-<div style={{
-  background: '#fef3c7', color: '#92400e',
-  padding: '10px 16px', textAlign: 'center',
-  fontSize: '14px', fontWeight: 600
-}}>
-  ⚠️ DEMO PROJECT. Not a real bank. Do not enter real personal details.
-</div>
 
 const Login = () => {
   const navigate = useNavigate();
@@ -110,6 +103,13 @@ const Login = () => {
 
   return (
     <div className={styles.authPage}>
+      <div style={{
+  background: '#fef3c7', color: '#92400e',
+  padding: '10px 16px', textAlign: 'center',
+  fontSize: '14px', fontWeight: 600
+}}>
+  ⚠️ DEMO PROJECT. Not a real bank. Do not enter real personal details.
+</div>
       {/* Background Elements */}
       <div className={styles.authBackground}>
         <div className={styles.bgGradient}></div>
@@ -146,7 +146,16 @@ const Login = () => {
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                 </svg>
-              
+
+                <div className={styles.brandFeature}>
+  <div className={styles.featureIcon}>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    </svg>
+  </div>  
+  <span>Full Security</span>   
+</div>   
+                
             <div className={styles.brandFeature}>
               <div className={styles.featureIcon}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -172,10 +181,6 @@ const Login = () => {
           <p>&copy; {new Date().getFullYear()} Demo project by Amit.</p>
         </div>
       </div>
-
-     <p style={{ fontSize: 13 }}>
-     Try demo login: <b>demo@bankify.test</b> / <b>Demo@1234</b>
-     </p>
           
       {/* Right Side - Login Form */}
       <div className={styles.authFormContainer}>
@@ -196,6 +201,10 @@ const Login = () => {
             <h2>Sign In</h2>
             <p>Enter your credentials to Demo login </p>
           </div>
+
+          <p style={{ fontSize: 13 }}>
+     Try demo login: <b>demo@bankify.test</b> / <b>Demo@1234</b>
+     </p>
 
           {/* Redirect Message */}
           {redirectMessage && (
