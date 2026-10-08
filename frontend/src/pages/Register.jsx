@@ -3,6 +3,14 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import styles from '../styles/Auth.module.css';
 
+<div style={{
+  background: '#fef3c7', color: '#92400e',
+  padding: '10px 16px', textAlign: 'center',
+  fontSize: '14px', fontWeight: 600
+}}>
+  ⚠️ DEMO PROJECT. Not a real bank. Do not enter real personal details.
+</div>
+
 const Register = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -14,11 +22,6 @@ const Register = () => {
     lastName: '',
     email: '',
     phone: '',
-    dateOfBirth: '',
-    gender: '',
-    panNumber: '',
-    aadharNumber: '',
-    address: '',
     city: '',
     state: '',
     pincode: '',
@@ -75,27 +78,6 @@ const Register = () => {
       case 'phone':
         if (!value.trim()) return 'Phone number is required';
         if (!/^[6-9]\d{9}$/.test(value)) return 'Invalid Indian mobile number';
-        return '';
-      case 'dateOfBirth':
-        if (!value) return 'Date of birth is required';
-        const age = calculateAge(value);
-        if (age < 18) return 'Must be at least 18 years old';
-        if (age > 100) return 'Invalid date of birth';
-        return '';
-      case 'gender':
-        if (!value) return 'Please select gender';
-        return '';
-      case 'panNumber':
-        if (!value.trim()) return 'PAN number is required';
-        if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(value.toUpperCase())) return 'Invalid PAN format (e.g., ABCDE1234F)';
-        return '';
-      case 'aadharNumber':
-        if (!value.trim()) return 'Aadhar number is required';
-        if (!/^\d{12}$/.test(value.replace(/\s/g, ''))) return 'Aadhar must be 12 digits';
-        return '';
-      case 'address':
-        if (!value.trim()) return 'Address is required';
-        if (value.length < 10) return 'Please enter complete address';
         return '';
       case 'city':
         if (!value.trim()) return 'City is required';
@@ -177,8 +159,8 @@ const Register = () => {
 
   const validateStep = (stepNumber) => {
     const stepFields = {
-      1: ['firstName', 'lastName', 'email', 'phone', 'dateOfBirth', 'gender'],
-      2: ['panNumber', 'aadharNumber', 'address', 'city', 'state', 'pincode'],
+      1: ['firstName', 'lastName', 'email', 'phone'],
+      2: ['city', 'state', 'pincode'],
       3: ['password', 'confirmPassword', 'agreeTerms']
     };
 
@@ -280,7 +262,7 @@ const Register = () => {
         
         <div className={styles.brandContent}>
           <h1>Create Your Account</h1>
-          <p>Join millions of Indians who trust Bankify for their banking needs.</p>
+          <p>A demo banking app built with React + Node + MongoDB.</p>
           
           <div className={styles.brandBenefits}>
             <div className={styles.benefit}>
@@ -297,7 +279,7 @@ const Register = () => {
             </div>
             <div className={styles.benefit}>
               <div className={styles.benefitIcon}>✓</div>
-              <span>₹50,000 Welcome Bonus</span>
+              <span>Demo balance: ₹50,000 (virtual)</span>
             </div>
           </div>
         </div>
@@ -349,13 +331,11 @@ const Register = () => {
           <div className={styles.formHeader}>
             <h2>
               {step === 1 && 'Personal Information'}
-              {step === 2 && 'Identity Verification'}
-              {step === 3 && 'Create Password'}
+              {step === 2 && 'Create Password'}
             </h2>
             <p>
               {step === 1 && 'Tell us about yourself'}
-              {step === 2 && 'KYC details for account verification'}
-              {step === 3 && 'Secure your account'}
+              {step === 2 && 'Secure your account'}
             </p>
           </div>
 
@@ -480,104 +460,6 @@ const Register = () => {
                           <line x1="3" y1="10" x2="21" y2="10"/>
                         </svg>
                       </div>
-                      <input
-                        type="date"
-                        name="dateOfBirth"
-                        value={formData.dateOfBirth}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        max={new Date(new Date().setFullYear(new Date().getFullYear() - 18)).toISOString().split('T')[0]}
-                      />
-                    </div>
-                    {errors.dateOfBirth && <span className={styles.errorText}>{errors.dateOfBirth}</span>}
-                  </div>
-
-                  <div className={`${styles.formGroup} ${errors.gender ? styles.hasError : ''}`}>
-                    <label>Gender <span className={styles.required}>*</span></label>
-                    <div className={styles.inputWrapper}>
-                      <select
-                        name="gender"
-                        value={formData.gender}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      >
-                        <option value="">Select Gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
-                      </select>
-                    </div>
-                    {errors.gender && <span className={styles.errorText}>{errors.gender}</span>}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Step 2: Identity */}
-            {step === 2 && (
-              <div className={styles.formStep}>
-                <div className={styles.formRow}>
-                  <div className={`${styles.formGroup} ${errors.panNumber ? styles.hasError : ''}`}>
-                    <label>PAN Number <span className={styles.required}>*</span></label>
-                    <div className={styles.inputWrapper}>
-                      <div className={styles.inputIcon}>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <rect x="2" y="4" width="20" height="16" rx="2"/>
-                          <path d="M6 8h.01M6 12h.01M6 16h.01M10 8h8M10 12h8M10 16h8"/>
-                        </svg>
-                      </div>
-                      <input
-                        type="text"
-                        name="panNumber"
-                        value={formData.panNumber}
-                        onChange={(e) => handleChange({ target: { name: 'panNumber', value: e.target.value.toUpperCase() }})}
-                        onBlur={handleBlur}
-                        placeholder="ABCDE1234F"
-                        maxLength={10}
-                        style={{ textTransform: 'uppercase' }}
-                      />
-                    </div>
-                    {errors.panNumber && <span className={styles.errorText}>{errors.panNumber}</span>}
-                  </div>
-
-                  <div className={`${styles.formGroup} ${errors.aadharNumber ? styles.hasError : ''}`}>
-                    <label>Aadhar Number <span className={styles.required}>*</span></label>
-                    <div className={styles.inputWrapper}>
-                      <div className={styles.inputIcon}>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <rect x="2" y="4" width="20" height="16" rx="2"/>
-                          <circle cx="8" cy="10" r="2"/>
-                          <path d="M14 8h4M14 12h4"/>
-                        </svg>
-                      </div>
-                      <input
-                        type="text"
-                        name="aadharNumber"
-                        value={formData.aadharNumber}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        placeholder="1234 5678 9012"
-                        maxLength={14}
-                      />
-                    </div>
-                    {errors.aadharNumber && <span className={styles.errorText}>{errors.aadharNumber}</span>}
-                  </div>
-                </div>
-
-                <div className={`${styles.formGroup} ${errors.address ? styles.hasError : ''}`}>
-                  <label>Address <span className={styles.required}>*</span></label>
-                  <div className={styles.inputWrapper}>
-                    <textarea
-                      name="address"
-                      value={formData.address}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      placeholder="Enter your complete address"
-                      rows={3}
-                    />
-                  </div>
-                  {errors.address && <span className={styles.errorText}>{errors.address}</span>}
-                </div>
 
                 <div className={styles.formRow}>
                   <div className={`${styles.formGroup} ${errors.city ? styles.hasError : ''}`}>
