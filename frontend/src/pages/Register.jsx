@@ -3,14 +3,6 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import styles from '../styles/Auth.module.css';
 
-<div style={{
-  background: '#fef3c7', color: '#92400e',
-  padding: '10px 16px', textAlign: 'center',
-  fontSize: '14px', fontWeight: 600
-}}>
-  ⚠️ DEMO PROJECT. Not a real bank. Do not enter real personal details.
-</div>
-
 const Register = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -109,16 +101,6 @@ const Register = () => {
     }
   };
 
-  const calculateAge = (dob) => {
-    const today = new Date();
-    const birthDate = new Date(dob);
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const monthDiff = today.getMonth() - birthDate.getMonth();
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
-    return age;
-  };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -211,9 +193,6 @@ const Register = () => {
       email: formData.email,
       phoneNumber: formData.phone,
       password: formData.password,
-      dateOfBirth: formData.dateOfBirth,
-      address: {
-        street: formData.address,
         city: formData.city,
         state: formData.state,
         zipCode: formData.pincode,
@@ -247,6 +226,14 @@ const Register = () => {
 
       {/* Left Side - Branding */}
       <div className={styles.authBranding}>
+
+        <div style={{
+  background: '#fef3c7', color: '#92400e',
+  padding: '10px 16px', textAlign: 'center',
+  fontSize: '14px', fontWeight: 600
+}}>
+  ⚠️ DEMO PROJECT. Not a real bank. Do not enter real personal details.
+</div>
         <Link to="/" className={styles.brandLogo}>
           <div className={styles.logoIcon}>
             <svg viewBox="0 0 40 40" fill="none">
@@ -285,7 +272,7 @@ const Register = () => {
         </div>
 
         <div className={styles.brandFooter}>
-          <p>&copy; {new Date().getFullYear()} Bankify. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Bankify Demo All rights reserved.</p>
         </div>
       </div>
 
@@ -331,7 +318,8 @@ const Register = () => {
           <div className={styles.formHeader}>
             <h2>
               {step === 1 && 'Personal Information'}
-              {step === 2 && 'Create Password'}
+              {step === 2 && 'Identity Details'}
+              {step === 3 && 'Create Password'}
             </h2>
             <p>
               {step === 1 && 'Tell us about yourself'}
@@ -447,19 +435,6 @@ const Register = () => {
                   </div>
                   {errors.phone && <span className={styles.errorText}>{errors.phone}</span>}
                 </div>
-
-                <div className={styles.formRow}>
-                  <div className={`${styles.formGroup} ${errors.dateOfBirth ? styles.hasError : ''}`}>
-                    <label>Date of Birth <span className={styles.required}>*</span></label>
-                    <div className={styles.inputWrapper}>
-                      <div className={styles.inputIcon}>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                          <line x1="16" y1="2" x2="16" y2="6"/>
-                          <line x1="8" y1="2" x2="8" y2="6"/>
-                          <line x1="3" y1="10" x2="21" y2="10"/>
-                        </svg>
-                      </div>
 
                 <div className={styles.formRow}>
                   <div className={`${styles.formGroup} ${errors.city ? styles.hasError : ''}`}>
