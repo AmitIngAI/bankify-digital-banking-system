@@ -18,7 +18,6 @@ const Login = () => {
   const [serverError, setServerError] = useState('');
   const [redirectMessage, setRedirectMessage] = useState('');
 
-  // Check if redirected from register
   useEffect(() => {
     if (location.state?.fromRegister) {
       setRedirectMessage('Account already exists! Please login.');
@@ -26,7 +25,6 @@ const Login = () => {
     }
   }, [location]);
 
-  // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
       navigate('/dashboard', { replace: true });
@@ -100,245 +98,240 @@ const Login = () => {
   };
 
   return (
-    <div className={styles.authPage}>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      {/* ⚠️ BANNER KO UPAR NIKAL DIYA HAI TAARI LAYOUT BREAK NA HO */}
       <div style={{
         background: '#fef3c7', color: '#92400e',
         padding: '10px 16px', textAlign: 'center',
-        fontSize: '14px', fontWeight: 600
+        fontSize: '14px', fontWeight: 600, width: '100%'
       }}>
         ⚠️ DEMO PROJECT. Not a real bank. Do not enter real personal details.
       </div>
 
-      {/* Background Elements */}
-      <div className={styles.authBackground}>
-        <div className={styles.bgGradient}></div>
-        <div className={styles.bgPattern}></div>
-        <div className={styles.bgShapes}>
-          <div className={styles.shape1}></div>
-          <div className={styles.shape2}></div>
-          <div className={styles.shape3}></div>
-        </div>
-      </div>
-
-      {/* Left Side - Branding */}
-      <div className={styles.authBranding}>
-        <Link to="/" className={styles.brandLogo}>
-          <div className={styles.logoIcon}>
-            <svg viewBox="0 0 40 40" fill="none">
-              <rect x="4" y="8" width="32" height="24" rx="4" stroke="currentColor" strokeWidth="2.5" />
-              <path d="M4 16H36" stroke="currentColor" strokeWidth="2.5" />
-              <circle cx="12" cy="24" r="3" fill="currentColor" />
-              <path d="M20 22H32" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-              <path d="M20 26H28" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-            </svg>
-          </div>
-          <span>Bankify</span>
-        </Link>
-
-        <div className={styles.brandContent}>
-          <h1>Welcome Back!</h1>
-          <p>Access your account securely and manage your finances with ease.</p>
-
-          {/* ✅ FIXED: Removed all duplicate/broken nested divs */}
-          <div className={styles.brandFeatures}>
-            <div className={styles.brandFeature}>
-              <div className={styles.featureIcon}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                </svg>
-              </div>
-              <span>Full Security</span>
-            </div>
-
-            <div className={styles.brandFeature}>
-              <div className={styles.featureIcon}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="10" />
-                  <polyline points="12,6 12,12 16,14" />
-                </svg>
-              </div>
-              <span>24/7 Access</span>
-            </div>
-
-            <div className={styles.brandFeature}>
-              <div className={styles.featureIcon}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                  <polyline points="22,4 12,14.01 9,11.01" />
-                </svg>
-              </div>
-              <span>Instant Transfers</span>
-            </div>
+      <div className={styles.authPage} style={{ flex: 1 }}>
+        {/* Background Elements */}
+        <div className={styles.authBackground}>
+          <div className={styles.bgGradient}></div>
+          <div className={styles.bgPattern}></div>
+          <div className={styles.bgShapes}>
+            <div className={styles.shape1}></div>
+            <div className={styles.shape2}></div>
+            <div className={styles.shape3}></div>
           </div>
         </div>
 
-        <div className={styles.brandFooter}>
-          <p>&copy; {new Date().getFullYear()} Demo project by Amit.</p>
-        </div>
-      </div>
-
-      {/* Right Side - Login Form */}
-      <div className={styles.authFormContainer}>
-        <div className={styles.authFormWrapper}>
-          {/* Mobile Logo */}
-          <Link to="/" className={styles.mobileLogo}>
+        {/* Left Side - Branding */}
+        <div className={styles.authBranding}>
+          <Link to="/" className={styles.brandLogo}>
             <div className={styles.logoIcon}>
               <svg viewBox="0 0 40 40" fill="none">
                 <rect x="4" y="8" width="32" height="24" rx="4" stroke="currentColor" strokeWidth="2.5" />
                 <path d="M4 16H36" stroke="currentColor" strokeWidth="2.5" />
                 <circle cx="12" cy="24" r="3" fill="currentColor" />
+                <path d="M20 22H32" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                <path d="M20 26H28" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
               </svg>
             </div>
             <span>Bankify</span>
           </Link>
 
-          <div className={styles.formHeader}>
-            <h2>Sign In</h2>
-            <p>Enter your credentials to Demo login</p>
+          <div className={styles.brandContent}>
+            <h1>Welcome Back!</h1>
+            <p>Access your account securely and manage your finances with ease.</p>
+
+            <div className={styles.brandFeatures}>
+              <div className={styles.brandFeature}>
+                <div className={styles.featureIcon}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                </div>
+                <span>Full Security</span>
+              </div>
+
+              <div className={styles.brandFeature}>
+                <div className={styles.featureIcon}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12,6 12,12 16,14" />
+                  </svg>
+                </div>
+                <span>24/7 Access</span>
+              </div>
+
+              <div className={styles.brandFeature}>
+                <div className={styles.featureIcon}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                    <polyline points="22,4 12,14.01 9,11.01" />
+                  </svg>
+                </div>
+                <span>Instant Transfers</span>
+              </div>
+            </div>
           </div>
 
-          <p style={{ fontSize: 13 }}>
-            Try demo login: <b>demo@bankify.test</b> / <b>Demo@1234</b>
-          </p>
+          <div className={styles.brandFooter}>
+            <p>&copy; {new Date().getFullYear()} Demo project by Amit.</p>
+          </div>
+        </div>
 
-          {/* Redirect Message */}
-          {redirectMessage && (
-            <div className={styles.infoAlert}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10" />
-                <line x1="12" y1="16" x2="12" y2="12" />
-                <line x1="12" y1="8" x2="12.01" y2="8" />
-              </svg>
-              <span>{redirectMessage}</span>
-            </div>
-          )}
-
-          {/* Server Error */}
-          {serverError && (
-            <div className={styles.errorAlert}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10" />
-                <line x1="15" y1="9" x2="9" y2="15" />
-                <line x1="9" y1="9" x2="15" y2="15" />
-              </svg>
-              <span>{serverError}</span>
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} className={styles.authForm}>
-            {/* Email Field */}
-            <div className={`${styles.formGroup} ${errors.email ? styles.hasError : ''}`}>
-              <label htmlFor="email">
-                Email Address <span className={styles.required}>*</span>
-              </label>
-              <div className={styles.inputWrapper}>
-                <div className={styles.inputIcon}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                    <polyline points="22,6 12,13 2,6" />
-                  </svg>
-                </div>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  placeholder="Enter your email"
-                  autoComplete="email"
-                  disabled={isLoading}
-                />
+        {/* Right Side - Login Form */}
+        <div className={styles.authFormContainer}>
+          <div className={styles.authFormWrapper}>
+            {/* Mobile Logo */}
+            <Link to="/" className={styles.mobileLogo}>
+              <div className={styles.logoIcon}>
+                <svg viewBox="0 0 40 40" fill="none">
+                  <rect x="4" y="8" width="32" height="24" rx="4" stroke="currentColor" strokeWidth="2.5" />
+                  <path d="M4 16H36" stroke="currentColor" strokeWidth="2.5" />
+                  <circle cx="12" cy="24" r="3" fill="currentColor" />
+                </svg>
               </div>
-              {errors.email && <span className={styles.errorText}>{errors.email}</span>}
+              <span>Bankify</span>
+            </Link>
+
+            <div className={styles.formHeader}>
+              <h2>Sign In</h2>
+              <p>Enter your credentials to Demo login</p>
             </div>
 
-            {/* Password Field */}
-            <div className={`${styles.formGroup} ${errors.password ? styles.hasError : ''}`}>
-              <label htmlFor="password">
-                Password <span className={styles.required}>*</span>
-              </label>
-              <div className={styles.inputWrapper}>
-                <div className={styles.inputIcon}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                  </svg>
-                </div>
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  id="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  placeholder="Enter your password"
-                  autoComplete="current-password"
-                  disabled={isLoading}
-                />
-                <button
-                  type="button"
-                  className={styles.togglePassword}
-                  onClick={() => setShowPassword(!showPassword)}
-                  tabIndex={-1}
-                >
-                  {showPassword ? (
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
-                      <line x1="1" y1="1" x2="23" y2="23" />
-                    </svg>
-                  ) : (
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                      <circle cx="12" cy="12" r="3" />
-                    </svg>
-                  )}
-                </button>
-              </div>
-              {errors.password && <span className={styles.errorText}>{errors.password}</span>}
-            </div>
-
-            {/* Remember & Forgot */}
-            <div className={styles.formOptions}>
-              <label className={styles.checkbox}>
-                <input type="checkbox" />
-                <span className={styles.checkmark}></span>
-                <span>Remember me</span>
-              </label>
-              <Link to="/forgot-password" className={styles.forgotLink}>
-                Forgot Password?
-              </Link>
-            </div>
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              className={`${styles.submitBtn} ${isLoading ? styles.loading : ''}`}
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <>
-                  <div className={styles.spinner}></div>
-                  <span>Signing In...</span>
-                </>
-              ) : (
-                <>
-                  <span>Sign In</span>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                    <polyline points="12,5 19,12 12,19" />
-                  </svg>
-                </>
-              )}
-            </button>
-          </form>
-
-          {/* Register Link */}
-          <div className={styles.authSwitch}>
-            <p>
-              Don't have an account?
-              <Link to="/register"> Create Account</Link>
+            <p style={{ fontSize: 13 }}>
+              Try demo login: <b>demo@bankify.test</b> / <b>Demo@1234</b>
             </p>
+
+            {redirectMessage && (
+              <div className={styles.infoAlert}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="16" x2="12" y2="12" />
+                  <line x1="12" y1="8" x2="12.01" y2="8" />
+                </svg>
+                <span>{redirectMessage}</span>
+              </div>
+            )}
+
+            {serverError && (
+              <div className={styles.errorAlert}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="15" y1="9" x2="9" y2="15" />
+                  <line x1="9" y1="9" x2="15" y2="15" />
+                </svg>
+                <span>{serverError}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className={styles.authForm}>
+              <div className={`${styles.formGroup} ${errors.email ? styles.hasError : ''}`}>
+                <label htmlFor="email">
+                  Email Address <span className={styles.required}>*</span>
+                </label>
+                <div className={styles.inputWrapper}>
+                  <div className={styles.inputIcon}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                      <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                  </div>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    placeholder="Enter your email"
+                    autoComplete="email"
+                    disabled={isLoading}
+                  />
+                </div>
+                {errors.email && <span className={styles.errorText}>{errors.email}</span>}
+              </div>
+
+              <div className={`${styles.formGroup} ${errors.password ? styles.hasError : ''}`}>
+                <label htmlFor="password">
+                  Password <span className={styles.required}>*</span>
+                </label>
+                <div className={styles.inputWrapper}>
+                  <div className={styles.inputIcon}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                    </svg>
+                  </div>
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    id="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    placeholder="Enter your password"
+                    autoComplete="current-password"
+                    disabled={isLoading}
+                  />
+                  <button
+                    type="button"
+                    className={styles.togglePassword}
+                    onClick={() => setShowPassword(!showPassword)}
+                    tabIndex={-1}
+                  >
+                    {showPassword ? (
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                        <line x1="1" y1="1" x2="23" y2="23" />
+                      </svg>
+                    ) : (
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                        <circle cx="12" cy="12" r="3" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+                {errors.password && <span className={styles.errorText}>{errors.password}</span>}
+              </div>
+
+              <div className={styles.formOptions}>
+                <label className={styles.checkbox}>
+                  <input type="checkbox" />
+                  <span className={styles.checkmark}></span>
+                  <span>Remember me</span>
+                </label>
+                <Link to="/forgot-password" className={styles.forgotLink}>
+                  Forgot Password?
+                </Link>
+              </div>
+
+              <button
+                type="submit"
+                className={`${styles.submitBtn} ${isLoading ? styles.loading : ''}`}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <div className={styles.spinner}></div>
+                    <span>Signing In...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Sign In</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12,5 19,12 12,19" />
+                    </svg>
+                  </>
+                )}
+              </button>
+            </form>
+
+            <div className={styles.authSwitch}>
+              <p>
+                Don't have an account?
+                <Link to="/register"> Create Account</Link>
+              </p>
+            </div>
           </div>
         </div>
       </div>
