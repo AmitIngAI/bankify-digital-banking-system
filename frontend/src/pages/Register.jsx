@@ -28,7 +28,6 @@ const Register = () => {
   const [serverError, setServerError] = useState('');
   const [redirectMessage, setRedirectMessage] = useState('');
 
-  // Check if redirected from login
   useEffect(() => {
     if (location.state?.fromLogin) {
       setRedirectMessage(location.state.message || 'Please create an account to continue.');
@@ -36,7 +35,6 @@ const Register = () => {
     }
   }, [location]);
 
-  // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated) {
       navigate('/dashboard', { replace: true });
@@ -104,7 +102,6 @@ const Register = () => {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     const newValue = type === 'checkbox' ? checked : value;
-
     setFormData(prev => ({ ...prev, [name]: newValue }));
     setErrors(prev => ({ ...prev, [name]: '' }));
     setServerError('');
@@ -157,7 +154,6 @@ const Register = () => {
   const handleNext = async () => {
     if (!validateStep(step)) return;
 
-    // Check email exists on step 1
     if (step === 1) {
       if (checkEmailExists(formData.email)) {
         navigate('/login', {
@@ -169,7 +165,6 @@ const Register = () => {
         return;
       }
     }
-
     setStep(step + 1);
   };
 
@@ -177,7 +172,6 @@ const Register = () => {
     setStep(step - 1);
   };
 
-  // ✅ FIXED: registerData object structure corrected
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -210,455 +204,457 @@ const Register = () => {
   const passwordStrength = getPasswordStrength();
 
   return (
-    <div className={styles.authPage}>
-      {/* Background */}
-      <div className={styles.authBackground}>
-        <div className={styles.bgGradient}></div>
-        <div className={styles.bgPattern}></div>
-        <div className={styles.bgShapes}>
-          <div className={styles.shape1}></div>
-          <div className={styles.shape2}></div>
-          <div className={styles.shape3}></div>
-        </div>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      
+      {/* ⚠️ BANNER KO UPAR NIKAL DIYA HAI */}
+      <div style={{
+        background: '#fef3c7', color: '#92400e',
+        padding: '10px 16px', textAlign: 'center',
+        fontSize: '14px', fontWeight: 600, width: '100%'
+      }}>
+        ⚠️ DEMO PROJECT. Not a real bank. Do not enter real personal details.
       </div>
 
-      {/* Left Side - Branding */}
-      <div className={styles.authBranding}>
-        <div style={{
-          background: '#fef3c7', color: '#92400e',
-          padding: '10px 16px', textAlign: 'center',
-          fontSize: '14px', fontWeight: 600
-        }}>
-          ⚠️ DEMO PROJECT. Not a real bank. Do not enter real personal details.
-        </div>
-
-        <Link to="/" className={styles.brandLogo}>
-          <div className={styles.logoIcon}>
-            <svg viewBox="0 0 40 40" fill="none">
-              <rect x="4" y="8" width="32" height="24" rx="4" stroke="currentColor" strokeWidth="2.5" />
-              <path d="M4 16H36" stroke="currentColor" strokeWidth="2.5" />
-              <circle cx="12" cy="24" r="3" fill="currentColor" />
-              <path d="M20 22H32" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-              <path d="M20 26H28" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-            </svg>
-          </div>
-          <span>Bankify</span>
-        </Link>
-
-        <div className={styles.brandContent}>
-          <h1>Create Your Account</h1>
-          <p>A demo banking app built with React + Node + MongoDB.</p>
-
-          <div className={styles.brandBenefits}>
-            <div className={styles.benefit}>
-              <div className={styles.benefitIcon}>✓</div>
-              <span>Zero Balance Account</span>
-            </div>
-            <div className={styles.benefit}>
-              <div className={styles.benefitIcon}>✓</div>
-              <span>Free Virtual Debit Card</span>
-            </div>
-            <div className={styles.benefit}>
-              <div className={styles.benefitIcon}>✓</div>
-              <span>Instant Account Opening</span>
-            </div>
-            <div className={styles.benefit}>
-              <div className={styles.benefitIcon}>✓</div>
-              <span>Demo balance: ₹50,000 (virtual)</span>
-            </div>
+      <div className={styles.authPage} style={{ flex: 1 }}>
+        {/* Background */}
+        <div className={styles.authBackground}>
+          <div className={styles.bgGradient}></div>
+          <div className={styles.bgPattern}></div>
+          <div className={styles.bgShapes}>
+            <div className={styles.shape1}></div>
+            <div className={styles.shape2}></div>
+            <div className={styles.shape3}></div>
           </div>
         </div>
 
-        <div className={styles.brandFooter}>
-          <p>&copy; {new Date().getFullYear()} Bankify Demo All rights reserved.</p>
-        </div>
-      </div>
-
-      {/* Right Side - Form */}
-      <div className={styles.authFormContainer}>
-        <div className={styles.authFormWrapper}>
-          {/* Mobile Logo */}
-          <Link to="/" className={styles.mobileLogo}>
+        {/* Left Side - Branding */}
+        <div className={styles.authBranding}>
+          <Link to="/" className={styles.brandLogo}>
             <div className={styles.logoIcon}>
               <svg viewBox="0 0 40 40" fill="none">
                 <rect x="4" y="8" width="32" height="24" rx="4" stroke="currentColor" strokeWidth="2.5" />
                 <path d="M4 16H36" stroke="currentColor" strokeWidth="2.5" />
                 <circle cx="12" cy="24" r="3" fill="currentColor" />
+                <path d="M20 22H32" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                <path d="M20 26H28" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
               </svg>
             </div>
             <span>Bankify</span>
           </Link>
 
-          {/* Progress Steps */}
-          <div className={styles.progressSteps}>
-            {[1, 2, 3].map((s) => (
-              <div
-                key={s}
-                className={`${styles.progressStep} ${step >= s ? styles.active : ''} ${step > s ? styles.completed : ''}`}
-              >
-                <div className={styles.stepCircle}>
-                  {step > s ? (
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                      <polyline points="20,6 9,17 4,12" />
-                    </svg>
-                  ) : s}
-                </div>
-                <span className={styles.stepLabel}>
-                  {s === 1 ? 'Personal' : s === 2 ? 'Identity' : 'Security'}
-                </span>
+          <div className={styles.brandContent}>
+            <h1>Create Your Account</h1>
+            <p>A demo banking app built with React + Node + MongoDB.</p>
+
+            <div className={styles.brandBenefits}>
+              <div className={styles.benefit}>
+                <div className={styles.benefitIcon}>✓</div>
+                <span>Zero Balance Account</span>
               </div>
-            ))}
-            <div className={styles.progressLine}>
-              <div className={styles.progressFill} style={{ width: `${((step - 1) / 2) * 100}%` }}></div>
+              <div className={styles.benefit}>
+                <div className={styles.benefitIcon}>✓</div>
+                <span>Free Virtual Debit Card</span>
+              </div>
+              <div className={styles.benefit}>
+                <div className={styles.benefitIcon}>✓</div>
+                <span>Instant Account Opening</span>
+              </div>
+              <div className={styles.benefit}>
+                <div className={styles.benefitIcon}>✓</div>
+                <span>Demo balance: ₹50,000 (virtual)</span>
+              </div>
             </div>
           </div>
 
-          <div className={styles.formHeader}>
-            <h2>
-              {step === 1 && 'Personal Information'}
-              {step === 2 && 'Identity Details'}
-              {step === 3 && 'Create Password'}
-            </h2>
-            <p>
-              {step === 1 && 'Tell us about yourself'}
-              {step === 2 && 'Where do you live?'}
-              {step === 3 && 'Secure your account'}
-            </p>
+          <div className={styles.brandFooter}>
+            <p>&copy; {new Date().getFullYear()} Bankify Demo All rights reserved.</p>
           </div>
+        </div>
 
-          {/* Messages */}
-          {redirectMessage && (
-            <div className={styles.infoAlert}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10" />
-                <line x1="12" y1="16" x2="12" y2="12" />
-                <line x1="12" y1="8" x2="12.01" y2="8" />
-              </svg>
-              <span>{redirectMessage}</span>
-            </div>
-          )}
-
-          {serverError && (
-            <div className={styles.errorAlert}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10" />
-                <line x1="15" y1="9" x2="9" y2="15" />
-                <line x1="9" y1="9" x2="15" y2="15" />
-              </svg>
-              <span>{serverError}</span>
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} className={styles.authForm}>
-            {/* Step 1: Personal Info */}
-            {step === 1 && (
-              <div className={styles.formStep}>
-                <div className={styles.formRow}>
-                  <div className={`${styles.formGroup} ${errors.firstName ? styles.hasError : ''}`}>
-                    <label>First Name <span className={styles.required}>*</span></label>
-                    <div className={styles.inputWrapper}>
-                      <div className={styles.inputIcon}>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                          <circle cx="12" cy="7" r="4" />
-                        </svg>
-                      </div>
-                      <input
-                        type="text"
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        placeholder="Enter first name"
-                      />
-                    </div>
-                    {errors.firstName && <span className={styles.errorText}>{errors.firstName}</span>}
-                  </div>
-
-                  <div className={`${styles.formGroup} ${errors.lastName ? styles.hasError : ''}`}>
-                    <label>Last Name <span className={styles.required}>*</span></label>
-                    <div className={styles.inputWrapper}>
-                      <div className={styles.inputIcon}>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                          <circle cx="12" cy="7" r="4" />
-                        </svg>
-                      </div>
-                      <input
-                        type="text"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        placeholder="Enter last name"
-                      />
-                    </div>
-                    {errors.lastName && <span className={styles.errorText}>{errors.lastName}</span>}
-                  </div>
-                </div>
-
-                <div className={`${styles.formGroup} ${errors.email ? styles.hasError : ''}`}>
-                  <label>Email Address <span className={styles.required}>*</span></label>
-                  <div className={styles.inputWrapper}>
-                    <div className={styles.inputIcon}>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                        <polyline points="22,6 12,13 2,6" />
-                      </svg>
-                    </div>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      placeholder="Enter email address"
-                    />
-                  </div>
-                  {errors.email && <span className={styles.errorText}>{errors.email}</span>}
-                </div>
-
-                <div className={`${styles.formGroup} ${errors.phone ? styles.hasError : ''}`}>
-                  <label>Mobile Number <span className={styles.required}>*</span></label>
-                  <div className={styles.inputWrapper}>
-                    <div className={styles.inputPrefix}>+91</div>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      placeholder="Enter 10-digit mobile number"
-                      maxLength={10}
-                    />
-                  </div>
-                  {errors.phone && <span className={styles.errorText}>{errors.phone}</span>}
-                </div>
+        {/* Right Side - Form */}
+        <div className={styles.authFormContainer}>
+          <div className={styles.authFormWrapper}>
+            {/* Mobile Logo */}
+            <Link to="/" className={styles.mobileLogo}>
+              <div className={styles.logoIcon}>
+                <svg viewBox="0 0 40 40" fill="none">
+                  <rect x="4" y="8" width="32" height="24" rx="4" stroke="currentColor" strokeWidth="2.5" />
+                  <path d="M4 16H36" stroke="currentColor" strokeWidth="2.5" />
+                  <circle cx="12" cy="24" r="3" fill="currentColor" />
+                </svg>
               </div>
-            )}
+              <span>Bankify</span>
+            </Link>
 
-            {/* ✅ Step 2: Identity (Address) — moved out of Step 1 */}
-            {step === 2 && (
-              <div className={styles.formStep}>
-                <div className={styles.formRow}>
-                  <div className={`${styles.formGroup} ${errors.city ? styles.hasError : ''}`}>
-                    <label>City <span className={styles.required}>*</span></label>
-                    <div className={styles.inputWrapper}>
-                      <input
-                        type="text"
-                        name="city"
-                        value={formData.city}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        placeholder="Enter city"
-                      />
-                    </div>
-                    {errors.city && <span className={styles.errorText}>{errors.city}</span>}
-                  </div>
-
-                  <div className={`${styles.formGroup} ${errors.state ? styles.hasError : ''}`}>
-                    <label>State <span className={styles.required}>*</span></label>
-                    <div className={styles.inputWrapper}>
-                      <select
-                        name="state"
-                        value={formData.state}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      >
-                        <option value="">Select State</option>
-                        {indianStates.map(state => (
-                          <option key={state} value={state}>{state}</option>
-                        ))}
-                      </select>
-                    </div>
-                    {errors.state && <span className={styles.errorText}>{errors.state}</span>}
-                  </div>
-                </div>
-
-                <div className={`${styles.formGroup} ${styles.halfWidth} ${errors.pincode ? styles.hasError : ''}`}>
-                  <label>Pincode <span className={styles.required}>*</span></label>
-                  <div className={styles.inputWrapper}>
-                    <input
-                      type="text"
-                      name="pincode"
-                      value={formData.pincode}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      placeholder="Enter pincode"
-                      maxLength={6}
-                    />
-                  </div>
-                  {errors.pincode && <span className={styles.errorText}>{errors.pincode}</span>}
-                </div>
-              </div>
-            )}
-
-            {/* Step 3: Password */}
-            {step === 3 && (
-              <div className={styles.formStep}>
-                <div className={`${styles.formGroup} ${errors.password ? styles.hasError : ''}`}>
-                  <label>Create Password <span className={styles.required}>*</span></label>
-                  <div className={styles.inputWrapper}>
-                    <div className={styles.inputIcon}>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                      </svg>
-                    </div>
-                    <input
-                      type={showPassword ? 'text' : 'password'}
-                      name="password"
-                      value={formData.password}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      placeholder="Create a strong password"
-                    />
-                    <button
-                      type="button"
-                      className={styles.togglePassword}
-                      onClick={() => setShowPassword(!showPassword)}
-                    >
-                      {showPassword ? (
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
-                          <line x1="1" y1="1" x2="23" y2="23" />
-                        </svg>
-                      ) : (
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                          <circle cx="12" cy="12" r="3" />
-                        </svg>
-                      )}
-                    </button>
-                  </div>
-                  {formData.password && (
-                    <div className={styles.passwordStrength}>
-                      <div className={styles.strengthBar}>
-                        <div
-                          className={styles.strengthFill}
-                          style={{ width: `${passwordStrength.strength}%`, backgroundColor: passwordStrength.color }}
-                        ></div>
-                      </div>
-                      <span style={{ color: passwordStrength.color }}>{passwordStrength.label}</span>
-                    </div>
-                  )}
-                  {errors.password && <span className={styles.errorText}>{errors.password}</span>}
-                  <div className={styles.passwordHints}>
-                    <span className={formData.password.length >= 8 ? styles.valid : ''}>• 8+ characters</span>
-                    <span className={/[A-Z]/.test(formData.password) ? styles.valid : ''}>• Uppercase</span>
-                    <span className={/[a-z]/.test(formData.password) ? styles.valid : ''}>• Lowercase</span>
-                    <span className={/\d/.test(formData.password) ? styles.valid : ''}>• Number</span>
-                    <span className={/[@$!%*?&]/.test(formData.password) ? styles.valid : ''}>• Special char</span>
-                  </div>
-                </div>
-
-                <div className={`${styles.formGroup} ${errors.confirmPassword ? styles.hasError : ''}`}>
-                  <label>Confirm Password <span className={styles.required}>*</span></label>
-                  <div className={styles.inputWrapper}>
-                    <div className={styles.inputIcon}>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                      </svg>
-                    </div>
-                    <input
-                      type={showConfirmPassword ? 'text' : 'password'}
-                      name="confirmPassword"
-                      value={formData.confirmPassword}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      placeholder="Confirm your password"
-                    />
-                    <button
-                      type="button"
-                      className={styles.togglePassword}
-                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    >
-                      {showConfirmPassword ? (
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
-                          <line x1="1" y1="1" x2="23" y2="23" />
-                        </svg>
-                      ) : (
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                          <circle cx="12" cy="12" r="3" />
-                        </svg>
-                      )}
-                    </button>
-                  </div>
-                  {errors.confirmPassword && <span className={styles.errorText}>{errors.confirmPassword}</span>}
-                </div>
-
-                <div className={`${styles.formGroup} ${styles.checkboxGroup} ${errors.agreeTerms ? styles.hasError : ''}`}>
-                  <label className={styles.checkboxLabel}>
-                    <input
-                      type="checkbox"
-                      name="agreeTerms"
-                      checked={formData.agreeTerms}
-                      onChange={handleChange}
-                    />
-                    <span className={styles.checkmark}></span>
-                    <span>
-                      I agree to the <a href="#" target="_blank" rel="noreferrer">Terms of Service</a> and <a href="#" target="_blank" rel="noreferrer">Privacy Policy</a> <span className={styles.required}>*</span>
-                    </span>
-                  </label>
-                  {errors.agreeTerms && <span className={styles.errorText}>{errors.agreeTerms}</span>}
-                </div>
-              </div>
-            )}
-
-            {/* Form Actions */}
-            <div className={styles.formActions}>
-              {step > 1 && (
-                <button type="button" className={styles.backBtn} onClick={handleBack}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <line x1="19" y1="12" x2="5" y2="12" />
-                    <polyline points="12,19 5,12 12,5" />
-                  </svg>
-                  <span>Back</span>
-                </button>
-              )}
-
-              {step < 3 ? (
-                <button type="button" className={styles.submitBtn} onClick={handleNext}>
-                  <span>Continue</span>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                    <polyline points="12,5 19,12 12,19" />
-                  </svg>
-                </button>
-              ) : (
-                <button
-                  type="submit"
-                  className={`${styles.submitBtn} ${isLoading ? styles.loading : ''}`}
-                  disabled={isLoading}
+            {/* Progress Steps */}
+            <div className={styles.progressSteps}>
+              {[1, 2, 3].map((s) => (
+                <div
+                  key={s}
+                  className={`${styles.progressStep} ${step >= s ? styles.active : ''} ${step > s ? styles.completed : ''}`}
                 >
-                  {isLoading ? (
-                    <>
-                      <div className={styles.spinner}></div>
-                      <span>Creating Account...</span>
-                    </>
-                  ) : (
-                    <>
-                      <span>Create Account</span>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                        <polyline points="22,4 12,14.01 9,11.01" />
+                  <div className={styles.stepCircle}>
+                    {step > s ? (
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                        <polyline points="20,6 9,17 4,12" />
                       </svg>
-                    </>
-                  )}
-                </button>
-              )}
+                    ) : s}
+                  </div>
+                  <span className={styles.stepLabel}>
+                    {s === 1 ? 'Personal' : s === 2 ? 'Identity' : 'Security'}
+                  </span>
+                </div>
+              ))}
+              <div className={styles.progressLine}>
+                <div className={styles.progressFill} style={{ width: `${((step - 1) / 2) * 100}%` }}></div>
+              </div>
             </div>
-          </form>
 
-          {/* Login Link */}
-          <div className={styles.authSwitch}>
-            <p>
-              Already have an account?
-              <Link to="/login"> Sign In</Link>
-            </p>
+            <div className={styles.formHeader}>
+              <h2>
+                {step === 1 && 'Personal Information'}
+                {step === 2 && 'Identity Details'}
+                {step === 3 && 'Create Password'}
+              </h2>
+              <p>
+                {step === 1 && 'Tell us about yourself'}
+                {step === 2 && 'Where do you live?'}
+                {step === 3 && 'Secure your account'}
+              </p>
+            </div>
+
+            {redirectMessage && (
+              <div className={styles.infoAlert}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="16" x2="12" y2="12" />
+                  <line x1="12" y1="8" x2="12.01" y2="8" />
+                </svg>
+                <span>{redirectMessage}</span>
+              </div>
+            )}
+
+            {serverError && (
+              <div className={styles.errorAlert}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="15" y1="9" x2="9" y2="15" />
+                  <line x1="9" y1="9" x2="15" y2="15" />
+                </svg>
+                <span>{serverError}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className={styles.authForm}>
+              {/* Step 1: Personal Info */}
+              {step === 1 && (
+                <div className={styles.formStep}>
+                  <div className={styles.formRow}>
+                    <div className={`${styles.formGroup} ${errors.firstName ? styles.hasError : ''}`}>
+                      <label>First Name <span className={styles.required}>*</span></label>
+                      <div className={styles.inputWrapper}>
+                        <div className={styles.inputIcon}>
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                          </svg>
+                        </div>
+                        <input
+                          type="text"
+                          name="firstName"
+                          value={formData.firstName}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          placeholder="Enter first name"
+                        />
+                      </div>
+                      {errors.firstName && <span className={styles.errorText}>{errors.firstName}</span>}
+                    </div>
+
+                    <div className={`${styles.formGroup} ${errors.lastName ? styles.hasError : ''}`}>
+                      <label>Last Name <span className={styles.required}>*</span></label>
+                      <div className={styles.inputWrapper}>
+                        <div className={styles.inputIcon}>
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                          </svg>
+                        </div>
+                        <input
+                          type="text"
+                          name="lastName"
+                          value={formData.lastName}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          placeholder="Enter last name"
+                        />
+                      </div>
+                      {errors.lastName && <span className={styles.errorText}>{errors.lastName}</span>}
+                    </div>
+                  </div>
+
+                  <div className={`${styles.formGroup} ${errors.email ? styles.hasError : ''}`}>
+                    <label>Email Address <span className={styles.required}>*</span></label>
+                    <div className={styles.inputWrapper}>
+                      <div className={styles.inputIcon}>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                          <polyline points="22,6 12,13 2,6" />
+                        </svg>
+                      </div>
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        placeholder="Enter email address"
+                      />
+                    </div>
+                    {errors.email && <span className={styles.errorText}>{errors.email}</span>}
+                  </div>
+
+                  <div className={`${styles.formGroup} ${errors.phone ? styles.hasError : ''}`}>
+                    <label>Mobile Number <span className={styles.required}>*</span></label>
+                    <div className={styles.inputWrapper}>
+                      <div className={styles.inputPrefix}>+91</div>
+                      <input
+                        type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        placeholder="Enter 10-digit mobile number"
+                        maxLength={10}
+                      />
+                    </div>
+                    {errors.phone && <span className={styles.errorText}>{errors.phone}</span>}
+                  </div>
+                </div>
+              )}
+
+              {/* Step 2: Identity */}
+              {step === 2 && (
+                <div className={styles.formStep}>
+                  <div className={styles.formRow}>
+                    <div className={`${styles.formGroup} ${errors.city ? styles.hasError : ''}`}>
+                      <label>City <span className={styles.required}>*</span></label>
+                      <div className={styles.inputWrapper}>
+                        <input
+                          type="text"
+                          name="city"
+                          value={formData.city}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          placeholder="Enter city"
+                        />
+                      </div>
+                      {errors.city && <span className={styles.errorText}>{errors.city}</span>}
+                    </div>
+
+                    <div className={`${styles.formGroup} ${errors.state ? styles.hasError : ''}`}>
+                      <label>State <span className={styles.required}>*</span></label>
+                      <div className={styles.inputWrapper}>
+                        <select
+                          name="state"
+                          value={formData.state}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        >
+                          <option value="">Select State</option>
+                          {indianStates.map(state => (
+                            <option key={state} value={state}>{state}</option>
+                          ))}
+                        </select>
+                      </div>
+                      {errors.state && <span className={styles.errorText}>{errors.state}</span>}
+                    </div>
+                  </div>
+
+                  <div className={`${styles.formGroup} ${styles.halfWidth} ${errors.pincode ? styles.hasError : ''}`}>
+                    <label>Pincode <span className={styles.required}>*</span></label>
+                    <div className={styles.inputWrapper}>
+                      <input
+                        type="text"
+                        name="pincode"
+                        value={formData.pincode}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        placeholder="Enter pincode"
+                        maxLength={6}
+                      />
+                    </div>
+                    {errors.pincode && <span className={styles.errorText}>{errors.pincode}</span>}
+                  </div>
+                </div>
+              )}
+
+              {/* Step 3: Password */}
+              {step === 3 && (
+                <div className={styles.formStep}>
+                  <div className={`${styles.formGroup} ${errors.password ? styles.hasError : ''}`}>
+                    <label>Create Password <span className={styles.required}>*</span></label>
+                    <div className={styles.inputWrapper}>
+                      <div className={styles.inputIcon}>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                      </div>
+                      <input
+                        type={showPassword ? 'text' : 'password'}
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        placeholder="Create a strong password"
+                      />
+                      <button
+                        type="button"
+                        className={styles.togglePassword}
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? (
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                            <line x1="1" y1="1" x2="23" y2="23" />
+                          </svg>
+                        ) : (
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
+                        )}
+                      </button>
+                    </div>
+                    {formData.password && (
+                      <div className={styles.passwordStrength}>
+                        <div className={styles.strengthBar}>
+                          <div
+                            className={styles.strengthFill}
+                            style={{ width: `${passwordStrength.strength}%`, backgroundColor: passwordStrength.color }}
+                          ></div>
+                        </div>
+                        <span style={{ color: passwordStrength.color }}>{passwordStrength.label}</span>
+                      </div>
+                    )}
+                    {errors.password && <span className={styles.errorText}>{errors.password}</span>}
+                    <div className={styles.passwordHints}>
+                      <span className={formData.password.length >= 8 ? styles.valid : ''}>• 8+ characters</span>
+                      <span className={/[A-Z]/.test(formData.password) ? styles.valid : ''}>• Uppercase</span>
+                      <span className={/[a-z]/.test(formData.password) ? styles.valid : ''}>• Lowercase</span>
+                      <span className={/\d/.test(formData.password) ? styles.valid : ''}>• Number</span>
+                      <span className={/[@$!%*?&]/.test(formData.password) ? styles.valid : ''}>• Special char</span>
+                    </div>
+                  </div>
+
+                  <div className={`${styles.formGroup} ${errors.confirmPassword ? styles.hasError : ''}`}>
+                    <label>Confirm Password <span className={styles.required}>*</span></label>
+                    <div className={styles.inputWrapper}>
+                      <div className={styles.inputIcon}>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                      </div>
+                      <input
+                        type={showConfirmPassword ? 'text' : 'password'}
+                        name="confirmPassword"
+                        value={formData.confirmPassword}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        placeholder="Confirm your password"
+                      />
+                      <button
+                        type="button"
+                        className={styles.togglePassword}
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      >
+                        {showConfirmPassword ? (
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
+                            <line x1="1" y1="1" x2="23" y2="23" />
+                          </svg>
+                        ) : (
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
+                        )}
+                      </button>
+                    </div>
+                    {errors.confirmPassword && <span className={styles.errorText}>{errors.confirmPassword}</span>}
+                  </div>
+
+                  <div className={`${styles.formGroup} ${styles.checkboxGroup} ${errors.agreeTerms ? styles.hasError : ''}`}>
+                    <label className={styles.checkboxLabel}>
+                      <input
+                        type="checkbox"
+                        name="agreeTerms"
+                        checked={formData.agreeTerms}
+                        onChange={handleChange}
+                      />
+                      <span className={styles.checkmark}></span>
+                      <span>
+                        I agree to the <a href="#" target="_blank" rel="noreferrer">Terms of Service</a> and <a href="#" target="_blank" rel="noreferrer">Privacy Policy</a> <span className={styles.required}>*</span>
+                      </span>
+                    </label>
+                    {errors.agreeTerms && <span className={styles.errorText}>{errors.agreeTerms}</span>}
+                  </div>
+                </div>
+              )}
+
+              {/* Form Actions */}
+              <div className={styles.formActions}>
+                {step > 1 && (
+                  <button type="button" className={styles.backBtn} onClick={handleBack}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <line x1="19" y1="12" x2="5" y2="12" />
+                      <polyline points="12,19 5,12 12,5" />
+                    </svg>
+                    <span>Back</span>
+                  </button>
+                )}
+
+                {step < 3 ? (
+                  <button type="button" className={styles.submitBtn} onClick={handleNext}>
+                    <span>Continue</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12,5 19,12 12,19" />
+                    </svg>
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    className={`${styles.submitBtn} ${isLoading ? styles.loading : ''}`}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <>
+                        <div className={styles.spinner}></div>
+                        <span>Creating Account...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Create Account</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                          <polyline points="22,4 12,14.01 9,11.01" />
+                        </svg>
+                      </>
+                    )}
+                  </button>
+                )}
+              </div>
+            </form>
+
+            <div className={styles.authSwitch}>
+              <p>
+                Already have an account?
+                <Link to="/login"> Sign In</Link>
+              </p>
+            </div>
           </div>
         </div>
       </div>
