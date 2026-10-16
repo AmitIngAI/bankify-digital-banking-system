@@ -7,7 +7,7 @@ const Register = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { register, checkEmailExists, isAuthenticated } = useAuth();
-  
+
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     firstName: '',
@@ -101,11 +101,10 @@ const Register = () => {
     }
   };
 
-
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     const newValue = type === 'checkbox' ? checked : value;
-    
+
     setFormData(prev => ({ ...prev, [name]: newValue }));
     setErrors(prev => ({ ...prev, [name]: '' }));
     setServerError('');
@@ -121,7 +120,7 @@ const Register = () => {
   const getPasswordStrength = () => {
     const password = formData.password;
     if (!password) return { strength: 0, label: '', color: '' };
-    
+
     let strength = 0;
     if (password.length >= 8) strength++;
     if (/[a-z]/.test(password)) strength++;
@@ -131,7 +130,7 @@ const Register = () => {
 
     const labels = ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'];
     const colors = ['#ef4444', '#f97316', '#eab308', '#22c55e', '#10b981'];
-    
+
     return {
       strength: (strength / 5) * 100,
       label: labels[strength - 1] || '',
@@ -178,36 +177,35 @@ const Register = () => {
     setStep(step - 1);
   };
 
+  // ✅ FIXED: registerData object structure corrected
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  
-  if (!validateStep(3)) return;
+    e.preventDefault();
 
-  setIsLoading(true);
-  setServerError('');
+    if (!validateStep(3)) return;
 
-  try {
-    // ✅ Convert firstName + lastName to fullName
-    const registerData = {
-      fullName: `${formData.firstName} ${formData.lastName}`,
-      email: formData.email,
-      phoneNumber: formData.phone,
-      password: formData.password,
+    setIsLoading(true);
+    setServerError('');
+
+    try {
+      const registerData = {
+        fullName: `${formData.firstName} ${formData.lastName}`,
+        email: formData.email,
+        phoneNumber: formData.phone,
+        password: formData.password,
         city: formData.city,
         state: formData.state,
         zipCode: formData.pincode,
         country: 'India'
-      }
-    };
+      };
 
-    await register(registerData);
-    navigate('/dashboard', { replace: true });
-  } catch (error) {
-    setServerError(error.message || 'Registration failed. Please try again.');
-  } finally {
-    setIsLoading(false);
-  }
-};
+      await register(registerData);
+      navigate('/dashboard', { replace: true });
+    } catch (error) {
+      setServerError(error.message || 'Registration failed. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const passwordStrength = getPasswordStrength();
 
@@ -226,31 +224,31 @@ const Register = () => {
 
       {/* Left Side - Branding */}
       <div className={styles.authBranding}>
-
         <div style={{
-  background: '#fef3c7', color: '#92400e',
-  padding: '10px 16px', textAlign: 'center',
-  fontSize: '14px', fontWeight: 600
-}}>
-  ⚠️ DEMO PROJECT. Not a real bank. Do not enter real personal details.
-</div>
+          background: '#fef3c7', color: '#92400e',
+          padding: '10px 16px', textAlign: 'center',
+          fontSize: '14px', fontWeight: 600
+        }}>
+          ⚠️ DEMO PROJECT. Not a real bank. Do not enter real personal details.
+        </div>
+
         <Link to="/" className={styles.brandLogo}>
           <div className={styles.logoIcon}>
             <svg viewBox="0 0 40 40" fill="none">
-              <rect x="4" y="8" width="32" height="24" rx="4" stroke="currentColor" strokeWidth="2.5"/>
-              <path d="M4 16H36" stroke="currentColor" strokeWidth="2.5"/>
-              <circle cx="12" cy="24" r="3" fill="currentColor"/>
-              <path d="M20 22H32" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-              <path d="M20 26H28" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              <rect x="4" y="8" width="32" height="24" rx="4" stroke="currentColor" strokeWidth="2.5" />
+              <path d="M4 16H36" stroke="currentColor" strokeWidth="2.5" />
+              <circle cx="12" cy="24" r="3" fill="currentColor" />
+              <path d="M20 22H32" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              <path d="M20 26H28" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
             </svg>
           </div>
           <span>Bankify</span>
         </Link>
-        
+
         <div className={styles.brandContent}>
           <h1>Create Your Account</h1>
           <p>A demo banking app built with React + Node + MongoDB.</p>
-          
+
           <div className={styles.brandBenefits}>
             <div className={styles.benefit}>
               <div className={styles.benefitIcon}>✓</div>
@@ -283,9 +281,9 @@ const Register = () => {
           <Link to="/" className={styles.mobileLogo}>
             <div className={styles.logoIcon}>
               <svg viewBox="0 0 40 40" fill="none">
-                <rect x="4" y="8" width="32" height="24" rx="4" stroke="currentColor" strokeWidth="2.5"/>
-                <path d="M4 16H36" stroke="currentColor" strokeWidth="2.5"/>
-                <circle cx="12" cy="24" r="3" fill="currentColor"/>
+                <rect x="4" y="8" width="32" height="24" rx="4" stroke="currentColor" strokeWidth="2.5" />
+                <path d="M4 16H36" stroke="currentColor" strokeWidth="2.5" />
+                <circle cx="12" cy="24" r="3" fill="currentColor" />
               </svg>
             </div>
             <span>Bankify</span>
@@ -294,14 +292,14 @@ const Register = () => {
           {/* Progress Steps */}
           <div className={styles.progressSteps}>
             {[1, 2, 3].map((s) => (
-              <div 
-                key={s} 
+              <div
+                key={s}
                 className={`${styles.progressStep} ${step >= s ? styles.active : ''} ${step > s ? styles.completed : ''}`}
               >
                 <div className={styles.stepCircle}>
                   {step > s ? (
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                      <polyline points="20,6 9,17 4,12"/>
+                      <polyline points="20,6 9,17 4,12" />
                     </svg>
                   ) : s}
                 </div>
@@ -323,7 +321,8 @@ const Register = () => {
             </h2>
             <p>
               {step === 1 && 'Tell us about yourself'}
-              {step === 2 && 'Secure your account'}
+              {step === 2 && 'Where do you live?'}
+              {step === 3 && 'Secure your account'}
             </p>
           </div>
 
@@ -331,9 +330,9 @@ const Register = () => {
           {redirectMessage && (
             <div className={styles.infoAlert}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="12" y1="16" x2="12" y2="12"/>
-                <line x1="12" y1="8" x2="12.01" y2="8"/>
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="16" x2="12" y2="12" />
+                <line x1="12" y1="8" x2="12.01" y2="8" />
               </svg>
               <span>{redirectMessage}</span>
             </div>
@@ -342,9 +341,9 @@ const Register = () => {
           {serverError && (
             <div className={styles.errorAlert}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="15" y1="9" x2="9" y2="15"/>
-                <line x1="9" y1="9" x2="15" y2="15"/>
+                <circle cx="12" cy="12" r="10" />
+                <line x1="15" y1="9" x2="9" y2="15" />
+                <line x1="9" y1="9" x2="15" y2="15" />
               </svg>
               <span>{serverError}</span>
             </div>
@@ -360,8 +359,8 @@ const Register = () => {
                     <div className={styles.inputWrapper}>
                       <div className={styles.inputIcon}>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                          <circle cx="12" cy="7" r="4"/>
+                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                          <circle cx="12" cy="7" r="4" />
                         </svg>
                       </div>
                       <input
@@ -381,8 +380,8 @@ const Register = () => {
                     <div className={styles.inputWrapper}>
                       <div className={styles.inputIcon}>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                          <circle cx="12" cy="7" r="4"/>
+                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                          <circle cx="12" cy="7" r="4" />
                         </svg>
                       </div>
                       <input
@@ -403,8 +402,8 @@ const Register = () => {
                   <div className={styles.inputWrapper}>
                     <div className={styles.inputIcon}>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                        <polyline points="22,6 12,13 2,6"/>
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                        <polyline points="22,6 12,13 2,6" />
                       </svg>
                     </div>
                     <input
@@ -435,7 +434,12 @@ const Register = () => {
                   </div>
                   {errors.phone && <span className={styles.errorText}>{errors.phone}</span>}
                 </div>
+              </div>
+            )}
 
+            {/* ✅ Step 2: Identity (Address) — moved out of Step 1 */}
+            {step === 2 && (
+              <div className={styles.formStep}>
                 <div className={styles.formRow}>
                   <div className={`${styles.formGroup} ${errors.city ? styles.hasError : ''}`}>
                     <label>City <span className={styles.required}>*</span></label>
@@ -497,8 +501,8 @@ const Register = () => {
                   <div className={styles.inputWrapper}>
                     <div className={styles.inputIcon}>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                       </svg>
                     </div>
                     <input
@@ -516,13 +520,13 @@ const Register = () => {
                     >
                       {showPassword ? (
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
-                          <line x1="1" y1="1" x2="23" y2="23"/>
+                          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                          <line x1="1" y1="1" x2="23" y2="23" />
                         </svg>
                       ) : (
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                          <circle cx="12" cy="12" r="3"/>
+                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                          <circle cx="12" cy="12" r="3" />
                         </svg>
                       )}
                     </button>
@@ -530,8 +534,8 @@ const Register = () => {
                   {formData.password && (
                     <div className={styles.passwordStrength}>
                       <div className={styles.strengthBar}>
-                        <div 
-                          className={styles.strengthFill} 
+                        <div
+                          className={styles.strengthFill}
                           style={{ width: `${passwordStrength.strength}%`, backgroundColor: passwordStrength.color }}
                         ></div>
                       </div>
@@ -553,8 +557,8 @@ const Register = () => {
                   <div className={styles.inputWrapper}>
                     <div className={styles.inputIcon}>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                       </svg>
                     </div>
                     <input
@@ -572,13 +576,13 @@ const Register = () => {
                     >
                       {showConfirmPassword ? (
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
-                          <line x1="1" y1="1" x2="23" y2="23"/>
+                          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
+                          <line x1="1" y1="1" x2="23" y2="23" />
                         </svg>
                       ) : (
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                          <circle cx="12" cy="12" r="3"/>
+                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                          <circle cx="12" cy="12" r="3" />
                         </svg>
                       )}
                     </button>
@@ -596,7 +600,7 @@ const Register = () => {
                     />
                     <span className={styles.checkmark}></span>
                     <span>
-                      I agree to the <a href="#" target="_blank">Terms of Service</a> and <a href="#" target="_blank">Privacy Policy</a> <span className={styles.required}>*</span>
+                      I agree to the <a href="#" target="_blank" rel="noreferrer">Terms of Service</a> and <a href="#" target="_blank" rel="noreferrer">Privacy Policy</a> <span className={styles.required}>*</span>
                     </span>
                   </label>
                   {errors.agreeTerms && <span className={styles.errorText}>{errors.agreeTerms}</span>}
@@ -609,24 +613,24 @@ const Register = () => {
               {step > 1 && (
                 <button type="button" className={styles.backBtn} onClick={handleBack}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <line x1="19" y1="12" x2="5" y2="12"/>
-                    <polyline points="12,19 5,12 12,5"/>
+                    <line x1="19" y1="12" x2="5" y2="12" />
+                    <polyline points="12,19 5,12 12,5" />
                   </svg>
                   <span>Back</span>
                 </button>
               )}
-              
+
               {step < 3 ? (
                 <button type="button" className={styles.submitBtn} onClick={handleNext}>
                   <span>Continue</span>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <line x1="5" y1="12" x2="19" y2="12"/>
-                    <polyline points="12,5 19,12 12,19"/>
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12,5 19,12 12,19" />
                   </svg>
                 </button>
               ) : (
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   className={`${styles.submitBtn} ${isLoading ? styles.loading : ''}`}
                   disabled={isLoading}
                 >
@@ -639,8 +643,8 @@ const Register = () => {
                     <>
                       <span>Create Account</span>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                        <polyline points="22,4 12,14.01 9,11.01"/>
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                        <polyline points="22,4 12,14.01 9,11.01" />
                       </svg>
                     </>
                   )}
