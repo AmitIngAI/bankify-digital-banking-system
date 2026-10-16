@@ -2242,3 +2242,29 @@
     font-size: 1.75rem;
   }
 }
+
+/* MOBILE VIEW CSS FIX - ADD THIS TO THE END OF THE FILE */
+@media screen and (max-width: 768px) {
+  .authPage {
+    flex-direction: column !important;
+    padding: 0px !important;
+  }
+  .authBranding {
+    display: none !important; /* Mobile me left side ko hide karna */
+  }
+  .authFormContainer {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 15px !important;
+  }
+  .authFormWrapper {
+    width: 100% !important;
+    box-shadow: none !important;
+    border-radius: 0px !important;
+    padding: 20px !important;
+  }
+  .formRow {
+    flex-direction: column;
+    gap: 15px;
+  }
+   }
